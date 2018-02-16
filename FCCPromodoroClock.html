@@ -29,7 +29,7 @@ var timeLeftSeconds =0;
 var status = new Boolean;
 var stopWatch;
 status == 0; 
-
+var promodoroState = "work";
 
 function addTimeInterval(arg1, arg2){
 return arg1; 
@@ -63,6 +63,7 @@ function breakOneMoreMinute(){
 }
 function breakOneLessMinute(){
 	breakDuration --;
+
 	console.log("new breakTima " +breakDuration);
 	updateBreakDuration();
 }
@@ -72,6 +73,8 @@ updateSessionDuration();
 }
 function sessionOneLessMinute(){
 sessionDuration --;
+	timeLeftMinutes=sessionDuration;
+
 updateSessionDuration();
 }
 
@@ -106,8 +109,13 @@ sessionOneLessMinute();
 
 /////////////////////////////////////////////////////////////////////////////
 function countDownBegin(){
+	timeLeftMinutes=sessionDuration;
  stopWatch = setInterval(function (){ tick() }, 1000);
+function changePromodoroState(){
+if (promodoroState == "break"){promodoroState == "work";
+}else if (promodoroState=="work"){promodoroState ="break"}
 
+}
 
 	function tick(){
 //var remainingTime = TimeDisplayMinutes;
@@ -121,14 +129,42 @@ console.log(">>>>>>>>>>"+timeLeftSeconds);
 		
 		timeLeftSeconds =59;
 		stringSecondsLeft ="59";
-		//timeLeftMinutes --;
+		timeLeftMinutes --;
 	}
 	else {}
 
 	console.log(timeLeftMinutes +":"+ stringSecondsLeft);
 	$('#timer').html(timeLeftMinutes + ":" + stringSecondsLeft);
 	 timeLeftSeconds --;
+	 // do something when work timer ends......
+
+if (timeLeftMinutes == 0 && timeLeftSeconds == 00){
+
+if (promodoroState == "work" ){
+timeLeftMinutes = breakDuration;
+timeLeftSeconds = 0;
+ 
+}else if (promodorstate =="break"){
+timeLeftMinutes = sessionDuration;
+timeLeftSeconds = 0;
+
+
+
+}
+changePromodoroState();
+}
+
+
+
+
 	}
+
+
+// do something when work timer ends......
+
+
+//do something when rest timer ends....
+
 }
 
 function countDownStop(){
