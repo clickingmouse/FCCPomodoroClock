@@ -16,7 +16,49 @@
 	<style>
 </style>
 <script>
-	$(document).ready(function()){
+	$(document).ready(function(){
+//Page Wide Variables & Defaults
+var sessionDuration=25;
+var breakDuration=5;
+var countDownTimer=0;
+var clockMinutes=25;
+var timeDisplayMinutes=25;
+var timeDipsplaySeconds=60;
+var timeLeftMinutes = 25;
+var timeLeftSeconds =60;
+function addTimeInterval(arg1, arg2){
+return arg1; 
+}
+function subtractTimeInterval(arg1, arg2){
+
+}
+
+function countDownBegin(){
+setInterval(function (){ tick() }, 1000);
+
+
+	function tick(){
+//var remainingTime = TimeDisplayMinutes;
+	timeLeftSeconds --;
+ if (timeLeftSeconds <10 ){
+ 	var stringSecondsLeft = "0" + timeLeftSeconds.toString();
+ } else { stringSecondsLeft = timeLeftSeconds.toString();}
+
+
+	if (timeLeftSeconds ==0) {
+		timeLeftMinutes --;
+		timeLeftSeconds =60;
+
+	}
+	console.log(timeLeftMinutes +":"+ stringSecondsLeft);
+	$('#timer').html(timeLeftMinutes + ":" + stringSecondsLeft);
+	
+	}
+}
+countDownBegin();	
+
+
+
 
 }); // document.ready
 
@@ -41,7 +83,7 @@
 
 			<div id="sesssionAddTimeArea">
 			<button id="sessionAddButton">TimeButtonAdd</button></div>
-			<div id="sesssionSubtractTimeAreq">
+			<div id="sesssionSubtractTimeArea">
 			<button id="sessionSubtractTimeButton">TimeButtonSubtract</button></div>
 			<div id="sessionDurationDisplayArea">Display Session Time</div>
 		</div><!-- sessions-->
@@ -69,7 +111,8 @@
 
 
 	<div id="timerArea">
-			TIMER GOES HERE
-
+		<div id=timer>
+			TIMER GOES HERE</div><!--timer -->
+<button id="StartStop"></button>
 	</div><!-- timerArea -->
 </body>
