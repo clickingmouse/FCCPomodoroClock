@@ -26,13 +26,83 @@ var timeDisplayMinutes=25;
 var timeDipsplaySeconds=60;
 var timeLeftMinutes = 25;
 var timeLeftSeconds =60;
+
+
+
 function addTimeInterval(arg1, arg2){
 return arg1; 
 }
+
+
 function subtractTimeInterval(arg1, arg2){
 
 }
 
+//////////////////////Controls////////////////////////////////////////////////////
+function updateBreakDuration() {
+
+$("#breakDurationDisplayArea").html(breakDuration);
+
+}
+function updateSessionDuration(){
+$("#sessionDurationDisplayArea").html(sessionDuration);
+
+
+}
+
+
+updateBreakDuration();
+updateSessionDuration();
+
+
+function breakOneMoreMinute(){
+	breakDuration ++;
+	updateBreakDuration();
+}
+function breakOneLessMinute(){
+	breakDuration --;
+	console.log("new breakTima " +breakDuration);
+	updateBreakDuration();
+}
+function sessionOneMoreMinute(){
+sessionDuration ++;
+updateSessionDuration();
+}
+function sessionOneLessMinute(){
+sessionDuration --;
+updateSessionDuration();
+}
+
+
+
+
+
+//////////////// on click add / subtract events /////////////////
+
+$("#breakAddTimeButton").click(function(){ 
+	console.log("onemore");
+breakOneMoreMinute();
+});
+
+$("#breakSubtractTimeButton").click(function(){ 
+	console.log("one less");
+breakOneLessMinute();
+});
+
+$("#sessionAddTimeButton").click(function(){ 
+sessionOneMoreMinute();
+});
+
+$("#sessionSubtractTimeButton").click(function(){ 
+sessionOneLessMinute();
+});
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
 function countDownBegin(){
 setInterval(function (){ tick() }, 1000);
 
@@ -82,10 +152,13 @@ countDownBegin();
 			Session Setting Location
 
 			<div id="sesssionAddTimeArea">
-			<button id="sessionAddButton">TimeButtonAdd</button></div>
+			<button id="sessionAddTimeButton">TimeButtonAdd</button></div>
+
+			<div id="sessionDurationDisplayArea">Display Session Time</div>
+
 			<div id="sesssionSubtractTimeArea">
 			<button id="sessionSubtractTimeButton">TimeButtonSubtract</button></div>
-			<div id="sessionDurationDisplayArea">Display Session Time</div>
+			
 		</div><!-- sessions-->
 
 		<div id="breakSetting">
@@ -93,9 +166,10 @@ countDownBegin();
 			<div id="breakAddTimeArea">
 			<button id="breakAddTimeButton">breakButtonAdd</button></div>
 
-			<div id="breakSubtractTimeArea">
-			<button id="breakAddTimeButton">breakButtonSubtract</button></div>
 			<div id="breakDurationDisplayArea">Display Break Time</div>
+
+			<div id="breakSubtractTimeArea">
+			<button id="breakSubtractTimeButton">breakButtonSubtract</button></div>
 
 		</div><!-- break setting -->
 
