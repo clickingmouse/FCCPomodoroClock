@@ -25,8 +25,10 @@ var clockMinutes=25;
 var timeDisplayMinutes=25;
 var timeDipsplaySeconds=60;
 var timeLeftMinutes = 25;
-var timeLeftSeconds =60;
-
+var timeLeftSeconds =0;
+var status = new Boolean;
+var stopWatch;
+status == 0; 
 
 
 function addTimeInterval(arg1, arg2){
@@ -53,7 +55,7 @@ $("#sessionDurationDisplayArea").html(sessionDuration);
 
 updateBreakDuration();
 updateSessionDuration();
-
+$('#timer').html(timeLeftMinutes + ":00");
 
 function breakOneMoreMinute(){
 	breakDuration ++;
@@ -104,30 +106,59 @@ sessionOneLessMinute();
 
 /////////////////////////////////////////////////////////////////////////////
 function countDownBegin(){
-setInterval(function (){ tick() }, 1000);
+ stopWatch = setInterval(function (){ tick() }, 1000);
 
 
 	function tick(){
 //var remainingTime = TimeDisplayMinutes;
-	timeLeftSeconds --;
+	
  if (timeLeftSeconds <10 ){
  	var stringSecondsLeft = "0" + timeLeftSeconds.toString();
  } else { stringSecondsLeft = timeLeftSeconds.toString();}
-
-
-	if (timeLeftSeconds ==0) {
-		timeLeftMinutes --;
-		timeLeftSeconds =60;
-
+console.log(">>>>>>>>>>"+timeLeftSeconds);
+       
+	if (timeLeftSeconds < 0 ) {
+		
+		timeLeftSeconds =59;
+		stringSecondsLeft ="59";
+		//timeLeftMinutes --;
 	}
+	else {}
+
 	console.log(timeLeftMinutes +":"+ stringSecondsLeft);
 	$('#timer').html(timeLeftMinutes + ":" + stringSecondsLeft);
-	
+	 timeLeftSeconds --;
 	}
 }
+
+function countDownStop(){
+clearInterval(stopWatch);
+
+}
+
+
+// should be called whnen "begin starats"
+//countDownBegin();	
+
+$("#startStop").click(function(){
+
+console.log("current status is::" + status );
+
+//if status 0 then start
+if ( status == false ){
+	status = 1;
 countDownBegin();	
 
+} else if (status == true){
+	status = 0;
+countDownStop();
 
+}
+
+
+
+
+});// start/stop click
 
 
 }); // document.ready
@@ -187,6 +218,6 @@ countDownBegin();
 	<div id="timerArea">
 		<div id=timer>
 			TIMER GOES HERE</div><!--timer -->
-<button id="StartStop"></button>
+<button id="startStop"></button>
 	</div><!-- timerArea -->
 </body>
